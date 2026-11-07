@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Portfolio</title>
+
+<style>
+  /* basic stuff */
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #17191D;
+    background: white;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px 20px;
+  }
+
+  /* navbar */
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 -20px;
+    padding: 14px 20px;
+    background: white;
+    border-bottom: 1px solid #ddd;
+    transition: box-shadow 180ms ease;
+  }
+
+  .navbar:focus-within,
+  .navbar:hover {
+    box-shadow: 0 4px 12px rgba(23, 25, 29, 0.08);
+  }
+
+  .navbar a {
+    display: inline-block;
+    margin-left: 18px;
+    color: #17191D;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 160ms ease, transform 160ms ease;
+  }
+
+  .navbar a:hover {
+    color: #2563EB;
+  }
+
+  .navbar a:active {
+    transform: scale(0.94);
+  }
+
+  .navbar a:focus-visible {
+    outline: 2px solid #2563EB;
+    outline-offset: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body {
+      scroll-behavior: auto;
+    }
+
+    .navbar,
+    .navbar a {
+      transition: none;
+    }
+  }
+
+  .logo {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .logo span {
+    color: #2563EB;
+  }
+
+  /* hero (top part) */
+  .hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 30px;
+    padding: 40px 0;
+  }
+
+  .hero-text {
+    flex: 1;
+    min-width: 280px;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+    margin: 10px 0;
+  }
+
+  .hero img {
+    width: 280px;
+    max-width: 100%;
+    border-radius: 20px;
+  }
+
+  .small-blue {
+    color: #2563EB;
+    font-weight: bold;
+    font-size: 13px;
+  }
+
+  /* buttons */
+  .btn {
+    display: inline-block;
+    padding: 10px 22px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 5px 5px 5px 0;
+  }
+
+  .btn-blue {
+    background: #2563EB;
+    color: white;
+  }
+
+  .btn-outline {
+    border: 1px solid #17191D;
+    color: #17191D;
+  }
+
+  /* sections */
+  .section {
+    padding: 40px 0;
+    border-top: 1px solid #ddd;
+    scroll-margin-top: 80px;
+  }
+
+  .section h2 {
+    font-size: 28px;
+    margin: 5px 0 15px;
+  }
+
+  /* skill tags */
+  .tag {
+    display: inline-block;
+    background: #F3F4F6;
+    padding: 5px 14px;
+    border-radius: 30px;
+    font-size: 14px;
+    margin: 0 6px 6px 0;
+  }
+
+  .note {
+    background: #EFF6FF;
+    border-left: 3px solid #2563EB;
+    padding: 12px 16px;
+    margin-top: 20px;
+  }
+
+  /* side hustle cards */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+  }
+
+  .card {
+    border: 1px solid #ddd;
+    border-radius: 14px;
+    padding: 20px;
+  }
+
+  .card.active {
+    border: 2px solid #2563EB;
+  }
+
+  .card h3 {
+    margin: 5px 0;
+  }
+
+  .card p {
+    margin: 0;
+    color: #4B5563;
+    font-size: 15px;
+  }
+
+  /* contact box */
+  .contact {
+    background: #17191D;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    border-radius: 20px;
+    margin-top: 40px;
+    scroll-margin-top: 80px;
+  }
+
+  .contact .btn-outline {
+    border-color: #888;
+    color: white;
+  }
+
+  .contact-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 820px;
+    margin: 28px auto 0;
+    text-align: left;
+  }
+
+  .contact-group {
+    padding: 0 18px;
+  }
+
+  .contact-group + .contact-group {
+    border-left: 1px solid #474b53;
+  }
+
+  .contact-group h3 {
+    margin: 6px 0;
+  }
+
+  .contact-group p {
+    margin: 0 0 14px;
+    color: #d1d5db;
+    font-size: 14px;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 4px;
+  }
+
+  .contact-links .btn {
+    flex: 0 0 auto;
+    margin: 4px 0;
+    padding: 8px 4px;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 560px) {
+    .contact-options {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .contact-group {
+      padding: 0;
+    }
+
+    .contact-group + .contact-group {
+      padding-top: 22px;
+      border-top: 1px solid #474b53;
+      border-left: 0;
+    }
+  }
+
+  .footer {
+    text-align: center;
+    font-size: 13px;
+    color: #777;
+    margin-top: 25px;
+  }
+</style>
+</head>
+
+<body>
+<div class="container">
+
+  <!-- NAVBAR -->
+  <div class="navbar">
+    <div class="logo">NathanDevMode<span>.</span></div>
+    <div>
+      <a href="#about">About</a>
+      <a href="#hustles">Side Hustles</a>
+      <a href="#journey">Journey</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-text">
+      <div class="small-blue">HELLO, WELCOME TO MY SPACE</div>
+      <h1>I’m Cris Nathan Villanueva.<br>Student, aspiring developer &amp; entrepreneur.</h1>
+      <p>I love exploring technology, creating things, and trying new opportunities. This is where I share my projects, side hustles, and journey.</p>
+      <a href="#hustles" class="btn btn-blue">Explore my work</a>
+      <a href="#contact" class="btn btn-outline">Contact me</a>
+    </div>
+
+    <!-- change your-photo.jpg to your actual photo link -->
+    <img src="mepic.png" alt="My photo">
+  </div>
+
+  <!-- ABOUT -->
+  <div class="section" id="about">
+    <div class="small-blue">ABOUT ME</div>
+    <h2>A little about me</h2>
+    <p>I’m a BSIT student based in the Philippines with a growing interest in technology, business, and continuous learning. Beyond the classroom, I run small ventures and work as a delivery rider to learn how the real world works.</p>
+    <p>I enjoy exploring new technologies, learning how things work, and finding creative ways to solve problems. My goal is to become a skilled Full-Stack Developer while continuing to grow as an entrepreneur.</p>
+
+    <span class="tag">HTML</span>
+    <span class="tag">CSS</span>
+    <span class="tag">C++</span>
+    <span class="tag">Canva</span>
+    <span class="tag">Microsoft Office</span>
+
+    <div class="note"><b>Currently exploring:</b> Web Development, Entrepreneurship, and new ways to improve my technical and business skills.</div>
+  </div>
+
+  <!-- SIDE HUSTLES -->
+  <div class="section" id="hustles">
+    <div class="small-blue">SIDE HUSTLES</div>
+    <h2>Things I’ve built beyond the classroom</h2>
+    <p>Five small ventures, each one a lesson.</p>
+
+    <div class="cards">
+
+      <div class="card">
+        <div class="small-blue">01 · ONGOING</div>
+        <h3>Printing &amp; Personalized Products</h3>
+        <p>I started with small printing services like photo strip keychains and Polaroid-style prints, a way to turn creativity into something people enjoy.</p>
+      </div>
+
+      <div class="card">
+        <div class="small-blue">02 · ONGOING</div>
+        <h3>Digital Camera Rental</h3>
+        <p>I rent out digital cameras for people who want to capture special moments. Rentals aren’t frequent, but it’s part of my journey.</p>
+      </div>
+
+      <div class="card">
+        <div class="small-blue">03 · ONGOING</div>
+        <h3>Crochet Business</h3>
+        <p>My creative side: turning simple yarn into unique handmade pieces.</p>
+      </div>
+
+      <div class="card active">
+        <div class="small-blue">04 · CURRENTLY ACTIVE</div>
+        <h3>NFC Review Standees</h3>
+        <p>I make NFC standees that let customers open a business’s Facebook or Google review page with one tap, making reviews easier to collect.</p>
+      </div>
+
+      <div class="card active">
+        <div class="small-blue">05 · CURRENTLY ACTIVE</div>
+        <h3>Foodpanda Bike Rider</h3>
+        <p>Alongside college, I deliver by bicycle. It helps me earn, manage my time, and balance work with studies.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- JOURNEY -->
+  <div class="section" id="journey">
+    <div class="small-blue">MY JOURNEY</div>
+    <h2>What I’ve learned along the way</h2>
+    <ul>
+      <li>Starting a business with limited capital</li>
+      <li>Handling customers and orders</li>
+      <li>Marketing small products</li>
+      <li>Managing money and expenses</li>
+      <li>Balancing college, business, and work</li>
+    </ul>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="contact" id="contact">
+    <h2>Let’s connect.</h2>
+    <p>Choose the best way to get in touch.</p>
+    <div class="contact-options">
+      <div class="contact-group">
+        <div class="small-blue">BUSINESS INQUIRIES</div>
+        <h3>Facebook Page</h3>
+        <p>For business inquiries, visit my Facebook Page.</p>
+        <div class="contact-links">
+          <a href="https://www.facebook.com/profile.php?id=61580644487713" class="btn btn-blue">Visit Facebook Page</a>
+        </div>
+      </div>
+      <div class="contact-group">
+        <div class="small-blue">PERSONAL &amp; PROFESSIONAL</div>
+        <h3>Other inquiries</h3>
+        <p>For projects, opportunities, or professional connections.</p>
+        <div class="contact-links">
+          <a href="mailto:crisnathanbatuto08@gmail.com?subject=Portfolio%20inquiry" class="btn btn-outline">Email me</a>
+          <a href="https://www.facebook.com/C.Nathan.Villanueva" class="btn btn-outline">Personal FB</a>
+          <a href="https://www.linkedin.com/in/cris-nathan-villanueva-0072b82a0" class="btn btn-outline">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">© Cris Nathan. Built with Github.</div>
+
+</div>
+</body>
+</html>
