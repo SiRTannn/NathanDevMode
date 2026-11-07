@@ -42,9 +42,14 @@
     box-shadow: 0 4px 12px rgba(23, 25, 29, 0.08);
   }
 
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
   .navbar a {
     display: inline-block;
-    margin-left: 18px;
     color: #17191D;
     text-decoration: none;
     font-size: 14px;
@@ -59,9 +64,61 @@
     transform: scale(0.94);
   }
 
-  .navbar a:focus-visible {
+  .navbar a:focus-visible,
+  .menu-toggle:focus-visible {
     outline: 2px solid #2563EB;
     outline-offset: 4px;
+  }
+
+  .menu-toggle {
+    display: none;
+    width: 42px;
+    height: 42px;
+    padding: 9px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    color: #17191D;
+    cursor: pointer;
+  }
+
+  .menu-toggle span {
+    display: block;
+    height: 2px;
+    margin: 5px 0;
+    background: currentColor;
+  }
+
+  @media (max-width: 640px) {
+    .navbar {
+      position: sticky;
+      flex-wrap: wrap;
+    }
+
+    .menu-toggle {
+      display: block;
+    }
+
+    .nav-links {
+      display: none;
+      flex: 0 0 calc(100% + 40px);
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      margin: 14px -20px -14px;
+      padding: 6px 20px 12px;
+      border-top: 1px solid #eee;
+      background: white;
+    }
+
+    .nav-links.is-open {
+      display: flex;
+    }
+
+    .nav-links a {
+      padding: 10px 0;
+      margin: 0;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -107,6 +164,29 @@
     width: 280px;
     max-width: 100%;
     border-radius: 20px;
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 20px;
+      padding: 28px 0 36px;
+    }
+
+    .hero img {
+      order: -1;
+      align-self: center;
+      width: min(280px, 100%);
+    }
+
+    .hero-text {
+      min-width: 0;
+    }
+
+    .hero h1 {
+      font-size: clamp(28px, 8vw, 36px);
+    }
   }
 
   .small-blue {
@@ -262,6 +342,10 @@
       border-top: 1px solid #474b53;
       border-left: 0;
     }
+
+    .contact-links {
+      flex-wrap: wrap;
+    }
   }
 
   .footer {
@@ -279,12 +363,17 @@
   <!-- NAVBAR -->
   <div class="navbar">
     <div class="logo">NathanDevMode<span>.</span></div>
-    <div>
+    <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav class="nav-links" id="primary-navigation" aria-label="Main navigation">
       <a href="#about">About</a>
       <a href="#hustles">Side Hustles</a>
       <a href="#journey">Journey</a>
       <a href="#contact">Contact</a>
-    </div>
+    </nav>
   </div>
 
   <!-- HERO -->
@@ -305,8 +394,8 @@
   <div class="section" id="about">
     <div class="small-blue">ABOUT ME</div>
     <h2>Get to Know Me</h2>
-    <p>I’m a BSIT student based in the Philippines with a growing interest in technology, business, and continuous learning. Beyond the classroom, I run small ventures and work as a delivery rider t[...]</p>
-    <p>I enjoy exploring new technologies, learning how things work, and finding creative ways to solve problems. My goal is to become a skilled Full-Stack Developer while continuing to grow as an ent[...]</p>
+    <p>I’m a BSIT student based in the Philippines with a growing interest in technology, business, and continuous learning. Beyond the classroom, I run small ventures and work as a delivery rider.</p>
+    <p>I enjoy exploring new technologies, learning how things work, and finding creative ways to solve problems. My goal is to become a skilled Full-Stack Developer while continuing to grow as an entrepreneur.</p>
 
     <span class="tag">HTML</span>
     <span class="tag">CSS</span>
@@ -400,5 +489,24 @@
   <div class="footer">© Cris Nathan. Built with Github.</div>
 
 </div>
+<script>
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navigation = document.querySelector('#primary-navigation');
+
+  menuToggle.addEventListener('click', () => {
+    const isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+    menuToggle.setAttribute('aria-expanded', String(!isOpen));
+    menuToggle.setAttribute('aria-label', isOpen ? 'Open navigation menu' : 'Close navigation menu');
+    navigation.classList.toggle('is-open', !isOpen);
+  });
+
+  navigation.addEventListener('click', (event) => {
+    if (event.target.closest('a')) {
+      navigation.classList.remove('is-open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.setAttribute('aria-label', 'Open navigation menu');
+    }
+  });
+</script>
 </body>
 </html>
