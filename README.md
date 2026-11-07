@@ -7,7 +7,8 @@
 </head>
 <body style="margin:0;background:#ffffff;color:#17191D;">
 <style>
-.nv{color:#17191D;max-width:960px;margin:0 auto;padding:16px 20px 0;font-family:-apple-system,'Segoe UI',Arial,sans-serif;position:relative}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+.nv{color:#17191D;max-width:960px;margin:0 auto;padding:16px 20px 0;font-family:-apple-system,'Segoe UI',Arial,sans-serif;position:sticky;top:0;z-index:50;background:#fff}
 .nv .bar{display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px solid #E5E7EB}
 .nv a{color:#17191D;text-decoration:none;font-size:14px}
 .nv .tabs{display:flex;gap:22px}.nv details{display:none}
